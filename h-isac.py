@@ -79,9 +79,9 @@ def extract_iocs(message):
     emails = re.findall(EMAIL, body)
     
     # clean up the iocs
-    ips = [defang(ip) for ip in ips]
-    urls = [defang(url) for url in urls]
-    emails = [defang(email).replace("mailto:", "") for email in emails]
+    ips = [refang(ip) for ip in ips]
+    urls = [refang(url) for url in urls]
+    emails = [refang(email).replace("mailto:", "") for email in emails]
     
     iocs = {"ip": [], "hash": [], "url": [], "email": []}
     iocs["ip"].extend(ips)
@@ -124,7 +124,7 @@ def get_messages(folder):
     
 def get_metadata():
     # read in meta data if it exists, otherwise create it
-    fpath = os.path.expanduser("~/pyioc_meta.json")
+    fpath = os.path.expanduser("~/pyioc_hisac_meta.json")
     try:
         with open(fpath, "r") as f:
             meta = json.load(f)
@@ -173,7 +173,7 @@ def main(args):
         meta["iocs"]["hashes"] += data.loc[data["type"] == "hash", :].shape[0]
         meta["iocs"]["urls"]   += data.loc[data["type"] == "url", :].shape[0]
         meta["iocs"]["emails"] += data.loc[data["type"] == "email", :].shape[0]
-        fpath = os.path.expanduser("~/pyioc_meta.json")
+        fpath = os.path.expanduser("~/pyioc_hisac_meta.json")
         with open(fpath, "w") as f:
             json.dump(meta, f)
     print("Done.")
