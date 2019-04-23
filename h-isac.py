@@ -161,8 +161,8 @@ def main(args):
         message = messages.GetNext()
     if all_data:
         data = pd.concat(all_data, ignore_index=True)
-        if args.splunk_config is not None:
-            push_to_splunk(data, args.splunk_config)
+        if args.splunk is not None:
+            push_to_splunk(data, args.splunk)
         else:
             date = dt.datetime.now().strftime("%Y%m%d")
             data.to_csv("amber_list_iocs_{}.csv".format(date), index=False)
@@ -200,12 +200,12 @@ if __name__ == "__main__":
            This is different from the Python SDK provided by Splunk. If using the SDK,
            you can modify the push_to_splunk() function to accommodate that.
     """
-    parser = argparse.ArgumentParser(description=description, prog="extract_amber_list_iocs.py")
-    parser.add_argument("folder", type=str, help="Specify the folder that holds the Amber List emails")
-    parser.add_argument("--splunk-config", type=str, default=None, help="Specify the file location of the config file that hase your username, password, app name, and kv store name. Leave empty if not using Splunk")
+    parser = argparse.ArgumentParser(description=description, prog="h-isac.py")
+    parser.add_argument("folder", type=str, help="Specify the folder that holds the H-ISAC emails")
+    parser.add_argument("--splunk", type=str, default=None, help="Specify the file location of the config file that hase your username, password, app name, and kv store name. Leave empty if not using Splunk")
     args = parser.parse_args()
     
     # ensure a proper config file was passed
-    if not args.splunk_config.endswith("json"):
-        raise ValueError("{} does not appear to be a JSON file.".format(args.splunk_config))
+    if not args.splunk.endswith("json"):
+        raise ValueError("{} does not appear to be a JSON file.".format(args.splunk))
     main(args)
