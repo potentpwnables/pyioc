@@ -37,7 +37,7 @@ Refanging - There is no standard around how an analyst defangs an IOC, and as a 
 ```
 URL   - hxxps://www[.]google[.]com
 IP    - 127[.]0[.]0[.]1
-Email - my[.]email\@somedomain[.]com
+Email - my[.]email@somedomain[.]com
 ```
 
 Emails - Some email signatures include the sender's email address. Because the scripts currently look for IOCs using regular expressions, these emails will be picked up as well, with no way of parsing them out in any automatic fashion, which will lead to false positives any time an email comes from that sender. One way to avoid this is to standardize the format by which IOCs are provided in these feeds. I have several ideas on how to do this, but think it's best to be done via a conversation.
