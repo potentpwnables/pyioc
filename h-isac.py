@@ -45,7 +45,7 @@ def push_to_splunk(data, config_file):
     
 def refang(ioc):
     ioc = re.sub(r"h[xX]{2}p(?=[s:])", "http", ioc)
-    ioc = re.sub(r"\[[.@]\]", ".", ioc)
+    ioc = re.sub(r"\[([.@])\]", r"\1", ioc)
     return ioc
 
 def clean_text(body):
