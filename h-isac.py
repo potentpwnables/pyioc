@@ -168,14 +168,15 @@ def main(args):
             data.to_csv("amber_list_iocs_{}.csv".format(date), index=False)
     
         # update the meta data
-        meta["processed_emails"] += len(messages)
         meta["iocs"]["ips"]    += data.loc[data["type"] == "ip", :].shape[0]
         meta["iocs"]["hashes"] += data.loc[data["type"] == "hash", :].shape[0]
         meta["iocs"]["urls"]   += data.loc[data["type"] == "url", :].shape[0]
         meta["iocs"]["emails"] += data.loc[data["type"] == "email", :].shape[0]
-        fpath = os.path.expanduser("~/pyioc_hisac_meta.json")
-        with open(fpath, "w") as f:
-            json.dump(meta, f)
+        
+    meta["processed_emails"] += len(messages)
+    fpath = os.path.expanduser("~/pyioc_hisac_meta.json")
+    with open(fpath, "w") as f:
+        json.dump(meta, f)
     print("Done.")
 
 if __name__ == "__main__":
